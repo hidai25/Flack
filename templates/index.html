@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <script src="{{ url_for('static', filename='index.js') }}"></script>
+  <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.3/jquery.min.js"></script>
+  <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/socket.io/4.0.0/socket.io.min.js"></script>
+  <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link rel="stylesheet" type="text/css" href="../static/styles.css">
+  <link href='http://fonts.googleapis.com/css?family=Pacifico' rel='stylesheet' type='text/css'>
+  <title>{% block title %}Chat page{% endblock %}</title>
+</head>
+
+<body>
+  <div class="sidenav">
+    <h6 style="color:white;">Flack</h6>
+    <h5 style="color:white;">Channels</h5>
+    <input id="channel" autocomplete="off" autofocus placeholder="New Channel" type="text">
+    <button id="channel_create">create</button>
+    <ul id="channels">
+      {% for channel in channels %}
+      <li onclick="askForChannelMsg('{{channel}}')" style="color:white;">
+        {{ channel }}
+      </li>
+      {% endfor %}
+    </ul>
+  </div>
+  <p id="display_name"></p>
+  <p id="current_channel_conn"></p>
+  <hr>
+  <div id="chatbox">
+    <p id="if_not_chann"></p>
+    <h3 id="show_date_style" style="display:none;"><span id="date"></span></h3>
+    <ul id="messages"></ul>
+  </div>
+  <div class="row border-chat">
+    <div class="col-md-12 col-sm-12 col-xs-12 third-section">
+      <div class="text-bar">
+        <p id="update_chan_created"> "created successfully"
+        </p>
+        <p id="updates"> "user is typing..."
+        </p>
+        <input id="msgs" autocomplete="off" placeholder="Message" type="text" onkeypress="user_typing();">
+        <button id="send_message" class="fa fa-arrow-right" aria-hidden="true" onclick="myFunction()"></button>
+      </div>
+    </div>
+  </div>
+  <div class="container">
+    {% block body %} {% endblock %}
+  </div>
+
+</body>
+
+</html>
